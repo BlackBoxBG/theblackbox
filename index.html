@@ -10,63 +10,83 @@
       color: #fff;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 100px 20px;
+      padding: 80px 20px;
     }
 
     h1 {
       font-size: 64px;
-      margin-bottom: 80px;
+      margin-bottom: 40px;
     }
 
-    .task {
-      font-size: 24px;
-      margin-bottom: 30px;
+    .riddle {
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
     }
 
-    .upload-btn input[type="file"] {
-      display: none;
+    .riddle-symbol {
+      font-size: 32px;
+      margin: 30px 0;
     }
 
-    .upload-btn label {
-      display: inline-block;
-      padding: 10px 30px;
-      background: black;
-      color: white;
-      border: 2px solid white;
-      cursor: pointer;
+    input[type="text"] {
+      padding: 10px;
       font-size: 16px;
-      transition: all 0.2s ease-in-out;
+      width: 300px;
+      max-width: 80%;
+      border-radius: 4px;
+      border: none;
+      outline: none;
     }
 
-    .upload-btn label:hover {
-      background: white;
-      color: black;
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background: red;
+      color: white;
+      cursor: pointer;
+    }
+
+    #confirmation {
+      margin-top: 10px;
+      color: limegreen;
     }
 
     .timer-label {
       color: red;
       font-size: 18px;
-      margin-top: 100px;
+      margin-top: 60px;
       margin-bottom: 10px;
     }
 
     #timer {
-      font-size: 48px;
+      font-size: 42px;
       color: red;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
+
   <h1>BLACK BOX</h1>
 
-  <div class="task">
-    Задание: Направи лого за ресторант
+  <div class="riddle">
+    Под вас стои кодирана дума, носеща уханието на пролет.<br>
+    Но не се доверявайте на очите си – тя е скрита чрез древен метод,<br>
+    известен само на онези, които умеят да пазят…<br><br>
+    <em>… тайна.</em>
   </div>
 
-  <div class="upload-btn">
-    <input type="file" id="fileInput" />
-    <label for="fileInput">ПРИКАЧИ</label>
+  <div class="riddle-symbol">🔐 ТПЪЬЛ</div>
+
+  <div>
+    <input type="text" id="answer" placeholder="Твоят отговор">
+    <br>
+    <button onclick="submitAnswer()">Изпрати</button>
+    <div id="confirmation"></div>
   </div>
 
   <div class="timer-label">времето ти изтича</div>
@@ -76,7 +96,9 @@
     function getNextUTCDeadline() {
       const now = new Date();
       const utcNow = new Date(now.toISOString());
-      const deadlineUTC = new Date(Date.UTC(utcNow.getUTCFullYear(), utcNow.getUTCMonth(), utcNow.getUTCDate(), 17, 0, 0));
+      const deadlineUTC = new Date(Date.UTC(
+        utcNow.getUTCFullYear(), utcNow.getUTCMonth(), utcNow.getUTCDate(), 17, 0, 0
+      ));
       if (utcNow > deadlineUTC) {
         deadlineUTC.setUTCDate(deadlineUTC.getUTCDate() + 1);
       }
@@ -100,6 +122,23 @@
 
     updateTimer();
     setInterval(updateTimer, 1000);
+
+    function submitAnswer() {
+      const answer = document.getElementById("answer").value;
+      const confirmation = document.getElementById("confirmation");
+
+      if (answer.trim() === "") {
+        confirmation.innerText = "Моля, въведи отговор.";
+        return;
+      }
+
+      // Временно – лог в конзолата. Може да се праща към сървър или имейл по-късно.
+      console.log("Отговор:", answer);
+
+      confirmation.innerText = "Отговорът е изпратен.";
+      document.getElementById("answer").value = "";
+    }
   </script>
+
 </body>
 </html>
