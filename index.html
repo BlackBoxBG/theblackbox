@@ -2,21 +2,89 @@
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Оферта на деня</title>
+  <title>Black Box</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      color: white;
+      letter-spacing: 3px;
+    }
+
+    .task {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .upload-box {
+      margin: 2rem 0;
+    }
+
+    input[type="file"] {
+      padding: 1rem;
+      background-color: #111;
+      color: white;
+      border: 2px dashed #333;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .countdown {
+      font-size: 3rem;
+      color: red;
+      margin-top: 4rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding: 2rem;">
-  <h1>🎯 Оферта на деня</h1>
-  <p>Изпълни задачата и спечели награда!</p>
+<body>
 
-  <h2>📝 Задача:</h2>
-  <p><strong>Направи лого за онлайн магазин за аксесоари</strong></p>
-  <p>Формат: PNG, без фон</p>
-  <p>Срок: до 20:00 днес</p>
+  <h1>Black Box</h1>
 
-  <a href="https://forms.gle/ТВОЯ-ФОРМА" target="_blank" style="display:inline-block; padding:10px 20px; background:#222; color:white; border-radius:10px; text-decoration:none;">Качи своя файл</a>
+  <div class="task">
+    Задание: <strong>Създай лого за мистериозен проект</strong>
+  </div>
 
-  <hr style="margin: 3rem 0;">
-  <p><a href="/rules.html">Правила на участие</a></p>
+  <div class="upload-box">
+    <input type="file" name="submission" />
+  </div>
+
+  <div class="countdown" id="timer">
+    24:00:00
+  </div>
+
+  <script>
+    // Countdown 24 часа
+    const startTime = new Date();
+    const endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = endTime - now;
+
+      if (diff <= 0) {
+        document.getElementById("timer").innerHTML = "00:00:00";
+        return;
+      }
+
+      const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+      const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+
+      document.getElementById("timer").innerHTML = `${hours}:${minutes}:${seconds}`;
+    }
+
+    setInterval(updateTimer, 1000);
+  </script>
+
 </body>
 </html>
