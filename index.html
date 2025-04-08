@@ -1,71 +1,70 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Black Box</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       background-color: #000;
-      color: white;
-      font-family: 'Courier New', monospace;
+      color: #fff;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 4rem 1rem;
+      padding: 40px;
     }
 
     h1 {
-      font-size: 4rem;
-      margin-bottom: 2rem;
-      color: white;
-      letter-spacing: 3px;
+      font-size: 48px;
+      margin-bottom: 30px;
     }
 
     .task {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .upload-box {
-      margin: 2rem 0;
+      font-size: 20px;
+      margin-bottom: 30px;
     }
 
     input[type="file"] {
-      padding: 1rem;
-      background-color: #111;
-      color: white;
-      border: 2px dashed #333;
-      border-radius: 10px;
-      cursor: pointer;
+      padding: 10px;
+      border: none;
+      background-color: #222;
+      color: #fff;
+      margin-top: 20px;
     }
 
-    .countdown {
-      font-size: 3rem;
+    #timer {
+      margin-top: 50px;
+      font-size: 36px;
       color: red;
-      margin-top: 4rem;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
-
   <h1>Black Box</h1>
 
   <div class="task">
     Задание: <strong>Създай лого за мистериозен проект</strong>
   </div>
 
-  <div class="upload-box">
+  <div>
     <input type="file" name="submission" />
   </div>
 
-  <div class="countdown" id="timer">
-    24:00:00
-  </div>
+  <div id="timer">24:00:00</div>
 
   <script>
-    // Countdown 24 часа
-    const startTime = new Date();
-    const endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
+    function getNextDeadline() {
+      const now = new Date();
+      const today20 = new Date();
+      today20.setHours(20, 0, 0, 0); // 20:00:00
+
+      if (now > today20) {
+        today20.setDate(today20.getDate() + 1);
+      }
+
+      return today20;
+    }
+
+    const endTime = getNextDeadline();
 
     function updateTimer() {
       const now = new Date();
@@ -83,8 +82,8 @@
       document.getElementById("timer").innerHTML = `${hours}:${minutes}:${seconds}`;
     }
 
+    updateTimer();
     setInterval(updateTimer, 1000);
   </script>
-
 </body>
 </html>
